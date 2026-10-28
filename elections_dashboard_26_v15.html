@@ -201,7 +201,7 @@ function drawRows(){drawCityChart();let q=$('query').value.trim(),sort=$('sort')
   $('citiesCount').textContent=fmt(filtered.length)+' מתוך '+fmt(all.length)+' יישובים';
   $('allCityRows').innerHTML=filtered.length?filtered.map(c=>`<div class="allCityRow"><strong>${esc(c.name)}</strong><div class="cityAxis" aria-hidden="true">${c.d!==null?`<i class="${c.d<0?'loss':'gain'}" style="width:${Math.abs(c.d)/max*48}%"></i>`:''}</div><b class="${c.d===null?'':c.d<0?'red':c.d>0?'green':''}" dir="ltr">${c.d===null?'—':(c.d>0?'+':'')+fmt(c.d)}</b><span class="cityTotals">${c.p?`<bdi>${fmt(c.p.votes)}</bdi> ← <bdi>${fmt(c.votes)}</bdi>`:'אין נתון קודם להשוואה'}</span></div>`).join(''):'<p class="citiesEmpty">לא נמצאו יישובים התואמים לחיפוש.</p>';
  }
- $('allCitiesOpen').onclick=()=>{drawAllCities();dialog.showModal();$('citiesSearch').focus()};
+ $('allCitiesOpen').onclick=()=>{drawAllCities();dialog.showModal();$('citiesClose').focus({preventScroll:true})};
  $('citiesClose').onclick=()=>dialog.close();
  dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close()}});
  dialog.addEventListener('close',()=>$('allCitiesOpen').focus());
