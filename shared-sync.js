@@ -24,9 +24,9 @@
   style.textContent = '.sharedAdmin input{width:100%;max-width:none;margin:8px 0}.sharedAdmin button{margin:4px 0}.sharedAdmin [hidden]{display:none!important}.sharedAdmin label{font-size:12px}.phaseField .btn{font-size:12px;margin-top:10px}';
   document.head.append(style);
   function adminState(enabled) {
-    uploadField.hidden = !enabled; phaseField.hidden = !enabled;
-    upload.disabled = !enabled || busy;
-    phase.disabled = !enabled || busy; phaseSave.disabled = !enabled || busy;
+    uploadField.hidden = false; phaseField.hidden = false;
+    upload.disabled = busy;
+    phase.disabled = busy; phaseSave.disabled = busy;
     document.getElementById('adminDisconnect').hidden = !enabled;
     document.getElementById('adminConnect').hidden = enabled;
     document.getElementById('githubWriteToken').hidden = enabled;
@@ -105,7 +105,13 @@
     credential = ''; adminState(false); status.textContent = 'יצאת ממצב ניהול.';
   };
   async function publish(data, started, fileName) {
-    if (!credential) throw Error('יש להתחבר לניהול לפני פרסום עדכון');
+    if (!credential) {
+      const input = document.getElementById('githubWriteToken');
+      credential = input.value.trim(); input.value = '';
+      if (!credential) throw Error('אפשרויות העדכון פתוחות. לפרסום לכל הצופים יש להזין מפתח GitHub בשדה למעלה.');
+      try { const repository = await request(''); if (!repository.permissions?.push) throw Error('אין הרשאת כתיבה למאגר'); }
+      catch(error) { credential = ''; throw error; }
+    }
     if (busy) throw Error('עדכון נוסף נמצא בתהליך');
     busy = true; adminState(true);
     try {
