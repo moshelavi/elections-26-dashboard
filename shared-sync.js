@@ -57,6 +57,7 @@
   function apply(payload) {
     validate(payload);
     if (payload.revision === revision) return;
+    if (currentPayload && Date.parse(payload.updatedAt) < Date.parse(currentPayload.updatedAt)) return;
     data26 = payload.data; phase.checked = payload.started;
     render(); updateBroadcastTime(new Date(payload.updatedAt));
     currentPayload = payload; revision = payload.revision;
@@ -140,4 +141,14 @@
   };
   document.addEventListener('visibilitychange',()=>{if(!document.hidden)sync();});
   setInterval(sync,30000); sync();
+})();
+
+(() => {
+  if(location.hostname!=='moshelavi.github.io'||navigator.doNotTrack==='1')return;
+  let id;
+  try{id=sessionStorage.getItem('displaySession');if(!id){id=crypto.randomUUID();sessionStorage.setItem('displaySession',id)}}catch{return}
+  const ua=navigator.userAgent;
+  const device=/iPad|Tablet/i.test(ua)?'tablet':/Mobi|Android|iPhone/i.test(ua)?'mobile':'desktop';
+  const pulse=()=>{if(document.hidden)return;fetch('https://elections-26-service-ml.plumcabin24.chatgpt.site/pulse',{method:'POST',headers:{'Content-Type':'application/json'},credentials:'omit',body:JSON.stringify({id,device}),keepalive:true}).catch(()=>{})};
+  pulse();setInterval(pulse,60000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)pulse()});
 })();
