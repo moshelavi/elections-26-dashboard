@@ -1,0 +1,7 @@
+expc.csv
+*.tmp
+*.log
+.env
+.env.*
+node_modules/
+__pycache__/
