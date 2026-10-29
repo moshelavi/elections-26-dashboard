@@ -59,7 +59,7 @@
     if (payload.revision === revision) return;
     const displayedAt = currentPayload?.updatedAt || document.getElementById('lastUpdated')?.dateTime;
     if (displayedAt && Date.parse(payload.updatedAt) < Date.parse(displayedAt)) return;
-    data26 = payload.data; phase.checked = payload.started;
+    data26 = payload.data; window.countCompleted = payload.completed === true; phase.checked = payload.started;
     render(); updateBroadcastTime(new Date(payload.updatedAt));
     currentPayload = payload; revision = payload.revision;
   }
