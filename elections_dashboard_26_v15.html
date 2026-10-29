@@ -261,4 +261,4 @@ function applyCountPhase(){
  const ua=navigator.userAgent;if(/Android/i.test(ua))document.getElementById('appleRotation').hidden=true;else if(/iPhone|iPad|iPod/i.test(ua)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1))document.getElementById('androidRotation').hidden=true;
  window.addEventListener('resize',update);window.addEventListener('orientationchange',update);document.addEventListener('fullscreenchange',()=>{update();window.dispatchEvent(new Event('resize'))});document.addEventListener('webkitfullscreenchange',()=>{update();window.dispatchEvent(new Event('resize'))});update();
 })();
-</script><script src="shared-sync.js"></script></body></html>
+</script><script src="shared-sync.js?v=20261029-sync2"></script></body></html>

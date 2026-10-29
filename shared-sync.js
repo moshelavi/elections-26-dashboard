@@ -3,7 +3,7 @@
   'use strict';
   const repo = 'moshelavi/elections-26-dashboard';
   const api = `https://api.github.com/repos/${repo}`;
-  const raw = `https://raw.githubusercontent.com/${repo}/main/shared-results.json`;
+  const raw = new URL('shared-results.json', document.baseURI).href;
   const status = document.getElementById('status');
   const upload = document.getElementById('file26');
   const phase = document.getElementById('doubleCountStarted');
@@ -57,7 +57,8 @@
   function apply(payload) {
     validate(payload);
     if (payload.revision === revision) return;
-    if (currentPayload && Date.parse(payload.updatedAt) < Date.parse(currentPayload.updatedAt)) return;
+    const displayedAt = currentPayload?.updatedAt || document.getElementById('lastUpdated')?.dateTime;
+    if (displayedAt && Date.parse(payload.updatedAt) < Date.parse(displayedAt)) return;
     data26 = payload.data; phase.checked = payload.started;
     render(); updateBroadcastTime(new Date(payload.updatedAt));
     currentPayload = payload; revision = payload.revision;
