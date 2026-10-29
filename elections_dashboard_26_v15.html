@@ -231,10 +231,10 @@ function applyCountPhase(){
  if(!phaseOriginalText.size){const walker=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);let node;while(node=walker.nextNode()){if(node.parentElement&&!['SCRIPT','STYLE'].includes(node.parentElement.tagName)&&node.textContent.includes('ללא מעטפות כפולות'))phaseOriginalText.set(node,node.textContent)}}
  for(const [node,text] of phaseOriginalText)node.textContent=started?text.replaceAll('ללא מעטפות כפולות','טרם הסתיימה ספירת המעטפות הכפולות'):text;
  const baseline=263050,actual=data26.double||0;
- const previousCard=[...document.querySelectorAll('.card')].find(c=>c.querySelector('h3')?.textContent==='קולות לג׳ בבחירות הקודמות');if(previousCard)previousCard.querySelector('.big').textContent=fmt(baseline);
+ const previousCard=[...document.querySelectorAll('.card')].find(c=>c.querySelector('h3')?.textContent==='קולות לג׳ בבחירות הקודמות');if(previousCard)previousCard.querySelector('.big').textContent=fmt(baseline+17144);
  document.querySelector('.countingScope').textContent=started?'טרם הסתיימה ספירת המעטפות הכפולות':'הספירה ללא מעטפות כפולות';
  document.querySelector('.legend').textContent=started?'השוואה על בסיס קולות רגילים בשתי הבחירות · הכפולות החלקיות אינן בהשוואה':'🔵 בחירות 2026 · ⚪ בחירות 2022 (ללא מעטפות כפולות)';
- if(previousCard)previousCard.querySelector('.muted').textContent=started?'קולות רגילים · בסיס ההשוואה':'ללא מעטפות כפולות';
+ if(previousCard)previousCard.querySelector('.muted').textContent='כולל מעטפות כפולות';
  document.querySelector('.projectionBadge').textContent=started?'אומדן לסיום · ספירת הכפולות טרם הסתיימה':'אומדן כולל מעטפות כפולות';
  document.querySelector('.projectionNote').textContent=started?(actual?'בסיכומים נכללו '+fmt(actual)+' קולות ג׳ בכפולות שכבר דווחו. האומדן לסיום מוצג בנפרד.':'בקובץ הנוכחי אין שורה נפרדת של כפולות שנספרו. לא נוספו קולות בפועל; האומדן מוצג בנפרד.'):'האומדן מחושב לפי קצב השינוי בקולות ג׳ לעומת הבחירות הקודמות.';
  document.querySelector('.envelopesVisual h2').textContent=started?'כמה קולות צפויים בסיום ספירת הכפולות?':'כמה קולות צפויים עם המעטפות הכפולות?';
