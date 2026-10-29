@@ -255,7 +255,7 @@ function applyCountPhase(){
  document.querySelector('.projectionBadge').textContent='הסתיימה הספירה';
  document.querySelector('.projectionNote').textContent='בסך הכול נכללו '+fmt(actual)+' קולות ג׳ במעטפות כפולות.';
  $('projectedTotal').textContent='הסתיימה הספירה';$('projectedTotal').style.fontSize='clamp(24px,3vw,40px)';$('double26').textContent='+'+fmt(actual);
- $('double26').previousElementSibling.textContent='תוספת מעטפות';
+ $('double26').previousElementSibling.textContent='תוספת מעטפות כפולות';
  const total=data26.total.votes+actual;$('regularSegment').style.width=(data26.total.votes/total*100)+'%';$('envelopeSegment').style.width=(actual/total*100)+'%';
  document.querySelector('.legend').textContent='השוואת הקולות הרגילים בשתי הבחירות · ללא מעטפות כפולות';
  }
